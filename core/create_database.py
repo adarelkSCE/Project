@@ -1,4 +1,4 @@
-from core.mysql import MySQL
+from core.infrastructure.mysql import MySQL
 from core.config import (
     MYSQL_HOST,
     MYSQL_USER,
