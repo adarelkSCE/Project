@@ -33,6 +33,9 @@ class ClassRoomsModel(ModelBase):
 
 
     def get_by_id(self, classroom_id: int) -> Optional[Dict[str, Any]]:
+        if not isinstance(classroom_id, int):
+            raise TypeError(f"classroom_id must be int, got {type(classroom_id).__name__}")
+        
         rows = self.db.select(self.TABLE, {"id": classroom_id})
         return rows[0] if rows else None
 

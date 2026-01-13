@@ -11,14 +11,21 @@ from core.config import (
     ENV_MODE
 )
 
-if ENV_MODE == "production":
-    db = MySQL(
-        host=MYSQL_HOST,
-        user=MYSQL_USER,
-        password=MYSQL_PASSWORD,
-        database=MYSQL_DATABASE,
-        port=MYSQL_PORT,
-        ssl_required=MYSQL_SSL_REQUIRED,
-    )
-else:   
-    db = MockJSONDB()
+def createDatabase(_mode="production"):
+    if _mode == "production":
+        return MySQL(
+            host=MYSQL_HOST,
+            user=MYSQL_USER,
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE,
+            port=MYSQL_PORT,
+            ssl_required=MYSQL_SSL_REQUIRED,
+        )
+
+    elif _mode == "develop":
+        return MockJSONDB("database/mock_db.json")
+
+    else:
+        raise ValueError(f"Unknown ENV_MODE: {_mode}")
+
+db = createDatabase(ENV_MODE.lower())

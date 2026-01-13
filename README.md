@@ -5,6 +5,28 @@ The client side exists mainly to demonstrate UX/UI, and is located under `templa
 
 ---
 
+## 🌍 Environment Modes & Database Selection
+
+FreeClass supports multiple runtime modes controlled via the environment variable `ENV_MODE`.
+
+
+| ENV_MODE value | Database backend |
+| -------------- | ---------------- |
+| develop        | MockJSONDB       |
+| production     | MySQL            |
+
+### Example
+
+```bash
+export ENV_MODE=develop
+python main.py
+
+export ENV_MODE=production
+python main.py
+```
+
+---
+
 ## What this repo showcases
 
 - **Real-time occupancy pipeline**: sensor event → API → MySQL → live availability views
@@ -86,11 +108,8 @@ The backend provides consistent availability results even when schedules don’t
 ## Running locally (typical)
 
 1. Create a MySQL database and import database/schema.sql
-2. Configure environment variables (DB host/user/password, app port).
+2. Configure environment variables (DB host/user/password, app port, ENV_MODE).
 3. Install dependencies and run the server.
-
-
-If your repo includes a `requirements.txt` and an entry-point (e.g. `app.py` / `main.py`), a typical flow is:
 
 ```bash
 python -m venv venv
@@ -109,5 +128,3 @@ This project tackles real engineering challenges:
 - handling imperfect data and operational overrides
 - delivering consistent results with **low latency**
 - designing a backend that can scale from simulator to real hardware
-
----
